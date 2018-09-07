@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Filters</title>
+	</head>
+		<canvas id="canvas" width="900" height="600" style="border:#000 solid 1px;" />
+
+		<canvas id="canvas2" width="900" height="600" style="border:#000 solid 1px;" />
+	</body>
+	<script>
+	var ctx = document.getElementById("canvas").getContext("2d");
+	var ctx2 = document.getElementById("canvas2").getContext("2d");
+
+			function binaire(image){
+				var line = 0;
+				var count = 0;
+
+				ctx.drawImage(image,0,0);
+			 imageData = ctx.getImageData(0,0,image.width,image.height);
+			 for (x=0; x<imageData.width; x++){
+			 for (y = 0 ; y < imageData.height; y++){ //la idea del for es que se sumen todos los grises de la imagen
+				 line += (getRed(imageData,x,y) + getGreen(imageData,x,y) + getBlue(imageData,x,y))/3;
+				 count++;
+			 }
+		 }
+		 line = line/count; //y acá sacamos el promedio de gris total de la imagen y en base a esto, trazamos la linea para saber cuales pixeles van blanco y cuales negro
+			 for (x=0; x<imageData.width; x++){
+				for (y = 0 ; y < imageData.height; y++){
+					var grey = (getRed(imageData,x,y) + getGreen(imageData,x,y) + getBlue(imageData,x,y))/3;
+					if(grey > line){
+						setPixel(imageData, x, y, 255, 255,255, 255);
+
+					}else{
+						setPixel(imageData, x, y, 0, 0,0, 255);
+					}
+				}
+			}
+			 ctx.putImageData(imageData,0,0);
+			}
+			function greyScale(image){
+				ctx.drawImage(image,0,0);
+			 imageData = ctx.getImageData(0,0,image.width,image.height);
+			 for (x=0; x<imageData.width; x++){
+				for (y = 0 ; y < imageData.height; y++){
+					var grey = (getRed(imageData,x,y) + getGreen(imageData,x,y) + getBlue(imageData,x,y))/3;
+					setPixel(imageData, x, y, grey, grey,grey, 255);
+				}
+			}
+			 ctx.putImageData(imageData,0,0);
+			}
+
+			function lineDrawer(image){
+				ctx.drawImage(image,0,0);
+			 imageData = ctx.getImageData(0,0,image.width,image.height);
+			  for (x=0; x<imageData.width; x++){
+				for (y = 0 ; y < imageData.height; y++){
+					var grey = (getRed(imageData,x,y) + getGreen(imageData,x,y) + getBlue(imageData,x,y))/3;
+					var greyNext = (getRed(imageData,x+4,y+1) + getGreen(imageData,x+4,y+1) + getBlue(imageData,x+4,y+1))/3;
+					if(grey+15 < greyNext){
+						setPixel(imageData, x, y,getRed(imageData,x,y)*0.3 , getGreen(imageData,x,y)*0.3 , getBlue(imageData,x,y)*0.3, 255);
+						//setPixel(imageData, x, y,0 ,0 , 0, 255);
+					}else{
+						setPixel(imageData, x, y,getRed(imageData,x,y) ,getGreen(imageData,x,y) ,getBlue(imageData,x,y),255);
+					//	setPixel(imageData, x, y,255 ,255 , 255, 255);
+					}
+
+			}
+			 ctx.putImageData(imageData,0,0);
+			}
+		}
+		function pastela(image){
+			ctx.drawImage(image,0,0);
+		 imageData = ctx.getImageData(0,0,image.width,image.height);
+			for (x=0; x<imageData.width; x++){
+			for (y = 0 ; y < imageData.height; y++){
+				var red= getRed(imageData,x,y);
+				var green = getGreen(imageData,x,y);
+				var blue = getBlue(imageData,x,y);
+				var middle = (red + green + blue)/3;
+				var amount = 30;
+
+				if(red < middle){
+					red = red + amount;
+				}else if (red > middle){
+					red = red - amount;
+				}
+				if(green < middle){
+					green = green + amount;
+				}else if (green > middle){
+					green = green - amount;
+				}
+				if(blue < middle){
+					blue = blue + amount;
+				}else if (blue > middle){
+					blue = blue - amount;
+				}
+				setPixel(imageData,x,y,red,green,blue,255);
+
+		}
+		 ctx.putImageData(imageData,0,0);
+		}
+	}
+		function diffuser(image){
+			ctx.drawImage(image,0,0);
+
+		 imageData = ctx.getImageData(0,0,image.width,image.height);
+		 imageData2 = ctx2.getImageData(0,0,image.width,image.height);
+		 for (var i = 0; i < 3; i++) {
+
+
+		 for (x=0; x<imageData.width; x++){
+			for (y = 0 ; y < imageData.height; y++){
+				if ((x <= 4) && (y <= 4)){
+					setPixel(imageData2, x, y,(getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y+1))/3, (getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y+1) )/3, (getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y+1))/3, 255);
+
+				} else if ((x > 0) && (x < imageData.width) && (y == 0)){
+					setPixel(imageData2, x, y,(getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y+1) )/3, (getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y+1) )/3, (getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y+1) )/3, 255);
+
+				} else if ((x == imageData.width) && (y == 0)){
+					setPixel(imageData2, x, y,(getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y-1))/3,( getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y-1))/3, (getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y-1))/3, 255);
+
+				} else if ((x == imageData.width) && (y > 0) && (y < imageData.height)){
+					setPixel(imageData2, x, y,(getRed(imageData,x-4,y) +getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y-1))/4, (getGreen(imageData,x-4,y) +getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y-1))/4, (getBlue(imageData,x-4,y) +getBlue(imageData,x,y) + getBlue(imageData,x+4,y) +  getBlue(imageData,x,y-1))/4, 255);
+
+				} else if((x == imageData.width) && (y == imageData.height)){
+					setPixel(imageData2, x, y,(getRed(imageData,x-4,y) +getRed(imageData,x,y) +getRed(imageData,x,y-1))/3, (getGreen(imageData,x-4,y) +getGreen(imageData,x,y) + getGreen(imageData,x,y-1))/3, (getBlue(imageData,x-4,y) +getBlue(imageData,x,y) + getBlue(imageData,x,y-1))/3, 255);
+
+				} else if((x > 4) && (x < imageData.width) && (y == imageData.height)){
+					setPixel(imageData2, x, y,(getRed(imageData,x-4,y) +getRed(imageData,x,y) +  getRed(imageData,x,y+1) + getRed(imageData,x,y-1))/4, (getGreen(imageData,x-4,y) +getGreen(imageData,x,y) + getGreen(imageData,x,y+1) + getGreen(imageData,x,y-1))/4, (getBlue(imageData,x-4,y) +getBlue(imageData,x,y) + getBlue(imageData,x+4,y) +  getBlue(imageData,x,y-1))/4, 255);
+
+				} else if((x == imageData.width) && (y == 0)){
+					setPixel(imageData2, x, y,(getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y+1) )/3, (getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y+1) )/3, (getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y+1))/3, 255);
+
+				} else if((x <= 4) && (y >0) && (y < imageData.height)){
+					setPixel(imageData2, x, y,(getRed(imageData,x-4,y) +getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y+1) )/4, (getGreen(imageData,x-4,y) +getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y+1) )/4, (getBlue(imageData,x-4,y) +getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y+1))/4, 255);
+
+				} else {
+					if ((x > 4) && (x < imageData.width) && (y > 1) && (y < imageData.height))
+						setPixel(imageData2, x, y,(getRed(imageData,x-4,y) +getRed(imageData,x,y) + getRed(imageData,x+4,y) + getRed(imageData,x,y+1) + getRed(imageData,x,y-1))/5, (getGreen(imageData,x-4,y) +getGreen(imageData,x,y) +getGreen(imageData,x+4,y)+ getGreen(imageData,x,y+1) + getGreen(imageData,x,y-1))/5, (getBlue(imageData,x-4,y) +getBlue(imageData,x,y) + getBlue(imageData,x+4,y) + getBlue(imageData,x,y+1) + getBlue(imageData,x,y-1))/5, 255);
+
+				}
+
+	}
+
+
+			}
+		}
+
+		 ctx.putImageData(imageData2,0,0);
+
+	}
+			 function negative(image){
+				 originalMini(image);
+				 ctx.drawImage(image,0,201);
+				imageData = ctx.getImageData(0,0,image.width,image.height);
+				for (x=0; x<imageData.width; x++){
+				 for (y = 0 ; y < imageData.height; y++){
+					 setPixel(imageData, x, y, 255-getRed(imageData,x,y), 255-getGreen(imageData,x,y),255-getBlue(imageData,x,y), 255);
+				 }
+			 }
+				ctx.putImageData(imageData,0,0);
+			 }
+			 function original(image){
+				ctx.drawImage(image,0,0);
+			 imageData = ctx.getImageData(0,0,image.width,image.height);
+			 for (x=0; x<imageData.width; x++){
+				for (y = 0 ; y < imageData.height; y++){
+					setPixel(imageData, x, y, getRed(imageData,x,y), getGreen(imageData,x,y),getBlue(imageData,x,y), 255);
+				}
+			}
+			 ctx.putImageData(imageData,0,0);
+			}
+			function mix(image1,image2){
+				ctx.drawImage(image1,0,0);
+		//		ctx.drawImage(image2,0,0);
+			 imageData1 = ctx.getImageData(0,0,image1.width,image1.height);
+			 imageData2 = ctx.getImageData(0,0,image2.width,image2.height);
+
+			 for (x = 0; x<imageData1.width; x++){
+				for (y = 0 ; y < imageData1.height; y++){
+					if (x%2 == 0 && y%2 == 0){
+							setPixel(imageData1, x, y, getRed(imageData1,x,y), getGreen(imageData1,x,y),getBlue(imageData1,x,y), 255);
+					}else{
+						setPixel(imageData1, x, y, getRed(imageData2,x,y), getGreen(imageData2,x,y),getBlue(imageData2,x,y), 255);
+					}
+
+				}
+			}
+			 ctx.putImageData(imageData1,0,0);
+			}
+			function originalMini(image){
+			ctx.drawImage(image, 0, 0, image.width * 0.5, image.height * 0.5, 0, 0, canvas.width, canvas.height);
+
+		 }
+
+			 var image2 = new Image();
+			  var image3 = new Image();
+			 image1.src = "img/playground.jpg";
+			 image2.src = "img/background.jpg";
+			 image3.src = "img/mota.jpg";
+			 image1.onload = function(){
+				 //image2.onload = function(){
+				//original(this);//OK
+				//negative(this);//OK NOT
+				//greyScale(this);//OK
+				//binaire(this);//OK
+				//lineDrawer(this);//OK
+				//diffuser(this);//OK
+				//pastela(this);//WTF
+				//mix(image1,image2);///WWTTFF
+			//	}
+			 }
+			 function getRed(imageData,x,y){
+				 index = (x+y*imageData.width) * 4;
+				 return imageData.data[index+0];
+			 }
+			 function getGreen(imageData,x,y){
+				index = (x+y*imageData.width) * 4;
+				return imageData.data[index+1];
+			}
+			function getBlue(imageData,x,y){
+				index = (x+y*imageData.width) * 4;
+				return imageData.data[index+2];
+			}
+			 function setPixel (imageData, x, y, r, g, b,a){
+				 index = (x + y * imageData.width) * 4;
+				 imageData.data[index+0] = r;
+				 imageData.data[index+1] = g;
+				 imageData.data[index+2] = b;
+				 imageData.data[index+3] = a;
+
+			 }
+	</script>
+</html>
