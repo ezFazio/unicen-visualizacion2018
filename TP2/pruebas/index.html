@@ -35,6 +35,15 @@
 <script>
 $(document).ready(function () {
   var ctx = document.getElementById("canvas").getContext("2d");
+  var casillas ={
+    columna1: { fila1: null, fila2:null, fila3: null, fila4: null , fila5: null, fila6:null},
+    columna2: { fila1: null, fila2:null , fila3: null, fila4: null, fila5: null, fila6:null },
+    columna3: { fila1: null, fila2:null, fila3: null, fila4: null, fila5: null, fila6:null } ,
+    columna4: { fila1: null, fila2:null, fila3: null, fila4: null, fila5: null, fila6:null },
+    columna5: { fila1: null, fila2:null , fila3: null, fila4: null, fila5: null, fila6:null },
+    columna6: { fila1: null, fila2:null, fila3: null, fila4: null, fila5: null, fila6:null } ,
+    columna7: { fila1: null, fila2:null, fila3: null, fila4: null, fila5: null, fila6:null }
+}
   var fichaActual = {
     aInternal: null,
     aListener: function(val) {},
@@ -91,31 +100,31 @@ $(document).ready(function () {
   Recuadro.prototype.contains = function() {
     // All we have to do is make sure the Mouse X,Y fall in the area between
     // the shape's X and (X + Width) and its Y and (Y + Height)
-    return  (this.posX <= posMouseX) && (this.posX + 20 >= posMouseX) &&
-            (this.posY <= posMouseY) && (this.posY + 20 >= posMouseY);
+    return  (this.posX-20 <= posMouseX) && (this.posX + 40 >= posMouseX) &&
+            (this.posY-20 <= posMouseY) && (this.posY + 40 >= posMouseY);
   }
   var sectorColumnas = [];
   var fichas = [];
   //-----------------Recuadros de Dropeo en columnas------------------
-  var recuadro1 = new Recuadro(250+15,110,1);
+  var recuadro1 = new Recuadro(250+15,110,'columna1');
   sectorColumnas[1] = recuadro1;
 
-  var recuadro2 = new Recuadro(325+15,110,2);
+  var recuadro2 = new Recuadro(325+15,110,'columna2');
   sectorColumnas[2] = recuadro2;
 
-  var recuadro3 = new Recuadro(400+15,110,3);
+  var recuadro3 = new Recuadro(400+15,110,'columna3');
   sectorColumnas[3] = recuadro3;
 
-  var recuadro4 = new Recuadro(475+13,110,4);
+  var recuadro4 = new Recuadro(475+13,110,'columna4');
   sectorColumnas[4] = recuadro4;
 
-  var recuadro5 = new Recuadro(550+11,110,5);
+  var recuadro5 = new Recuadro(550+11,110,'columna5');
   sectorColumnas[5] = recuadro5;
 
-  var recuadro6 = new Recuadro(625+10,110,6);
+  var recuadro6 = new Recuadro(625+10,110,'columna6');
   sectorColumnas[6] = recuadro6;
 
-  var recuadro7 = new Recuadro(700+9,110,7);
+  var recuadro7 = new Recuadro(700+9,110,'columna7');
   sectorColumnas[7] = recuadro7;
 
 dibujarRecuadros();
@@ -132,7 +141,120 @@ function dibujarRecuadros(){
   }
 }
 
+//-----------------FIN Recuadros de Dropeo en columnas------------------
 
+
+//--------------ARMADO DE TABLERO---------------------------
+function Casilla(f,c,pX,pY){
+  this.ocupado = false;
+  this.fila=f;
+  this.columna=c;
+  this.ficha = null;
+  this.posX= pX;
+  this.posY= pY;
+}
+//----------colA
+var c1A = new Casilla(1,1,242,474);
+casillas['columna1']['fila1']=c1A;
+var c2A = new Casilla(1,1,242,412);
+casillas['columna1']['fila2']=c2A;
+var c3A = new Casilla(1,1,242,350);
+casillas['columna1']['fila3']=c3A;
+var c4A = new Casilla(1,1,242,288);
+casillas['columna1']['fila4']=c4A;
+var c5A = new Casilla(1,1,242,226);
+casillas['columna1']['fila5']=c5A;
+var c6A = new Casilla(1,1,242,164);
+casillas['columna1']['fila6']=c6A;
+
+//------------colB
+var c1B = new Casilla(1,1,315,474);
+casillas['columna2']['fila1']=c1B;
+var c2B = new Casilla(1,1,315,412);
+casillas['columna2']['fila2']=c2B;
+var c3B = new Casilla(1,1,315,350);
+casillas['columna2']['fila3']=c3B;
+var c4B = new Casilla(1,1,315,288);
+casillas['columna2']['fila4']=c4B;
+var c5B = new Casilla(1,1,315,226);
+casillas['columna2']['fila5']=c5B;
+var c6B = new Casilla(1,1,315,164);
+casillas['columna2']['fila6']=c6B;
+
+//------------colC
+var c1C = new Casilla(1,1,388,474);
+casillas['columna3']['fila1']=c1C;
+var c2C = new Casilla(1,1,388,412);
+casillas['columna3']['fila2']=c2C;
+var c3C = new Casilla(1,1,388,350);
+casillas['columna3']['fila3']=c3C;
+var c4C = new Casilla(1,1,388,288);
+casillas['columna3']['fila4']=c4C;
+var c5C = new Casilla(1,1,388,226);
+casillas['columna3']['fila5']=c5C;
+var c6C = new Casilla(1,1,388,164);
+casillas['columna3']['fila6']=c6C;
+
+//------------colD
+var c1D = new Casilla(1,1,461,474);
+casillas['columna4']['fila1']=c1D;
+var c2D = new Casilla(1,1,461,412);
+casillas['columna4']['fila2']=c2D;
+var c3D = new Casilla(1,1,461,350);
+casillas['columna4']['fila3']=c3D;
+var c4D = new Casilla(1,1,461,288);
+casillas['columna4']['fila4']=c4D;
+var c5D = new Casilla(1,1,461,226);
+casillas['columna4']['fila5']=c5D;
+var c6D = new Casilla(1,1,461,164);
+casillas['columna4']['fila6']=c6D;
+
+//------------colE
+var c1E = new Casilla(1,1,534,474);
+casillas['columna5']['fila1']=c1E;
+var c2E = new Casilla(1,1,534,412);
+casillas['columna5']['fila2']=c2E;
+var c3E = new Casilla(1,1,534,350);
+casillas['columna5']['fila3']=c3E;
+var c4E = new Casilla(1,1,534,288);
+casillas['columna5']['fila4']=c4E;
+var c5E = new Casilla(1,1,534,226);
+casillas['columna5']['fila5']=c5E;
+var c6E = new Casilla(1,1,534,164);
+casillas['columna5']['fila6']=c6E;
+
+//------------colF
+var c1F = new Casilla(1,1,607,474);
+casillas['columna6']['fila1']=c1F;
+var c2F = new Casilla(1,1,607,412);
+casillas['columna6']['fila2']=c2F;
+var c3F = new Casilla(1,1,607,350);
+casillas['columna6']['fila3']=c3F;
+var c4F = new Casilla(1,1,607,288);
+casillas['columna6']['fila4']=c4F;
+var c5F = new Casilla(1,1,607,226);
+casillas['columna6']['fila5']=c5F;
+var c6F = new Casilla(1,1,607,164);
+casillas['columna6']['fila6']=c6F;
+
+//------------colG
+var c1G = new Casilla(1,1,680,474);
+casillas['columna7']['fila1']=c1G;
+var c2G = new Casilla(1,1,680,412);
+casillas['columna7']['fila2']=c2G;
+var c3G = new Casilla(1,1,680,350);
+casillas['columna7']['fila3']=c3G;
+var c4G = new Casilla(1,1,680,288);
+casillas['columna7']['fila4']=c4G;
+var c5G = new Casilla(1,1,680,226);
+casillas['columna7']['fila5']=c5G;
+var c6G = new Casilla(1,1,680,164);
+casillas['columna7']['fila6']=c6G;
+
+
+console.log(casillas ['columna1']['fila1'].posX);
+
+//--------------FIN de ARMADO DE TABLERO---------------------------
 
 
 
@@ -301,12 +423,10 @@ posMouseX = Math.round(evt.clientX - this.ClientRect.left);
 posMouseY = Math.round(evt.clientY - this.ClientRect.top);
 //alert("xxxxxxxxx"+posMouseX +"yyyyyyyyyyy" + posMouseY);
 
-
+  //alert("alert1" + casillas['columna2','fila1']);
 
 };
-fichaActual.registerListener(function(val) {
 
-});
 
 var down = false;
 var check = false;
@@ -314,7 +434,7 @@ canvas.addEventListener('mousedown', function (evt) {
     down = true;
     check = true;
     MousePos(canvas, evt);
-
+  //alert("alert2" + casillas['columna2','fila1']);
     //alert("llegoasd" + posMouseX);
 
     for (var i = 1; i < 43; i++) {
@@ -325,7 +445,17 @@ canvas.addEventListener('mousedown', function (evt) {
         break;
       }
 }}, false);
+
+function calcularFila(colum){
+for (var i = 1; i < 7; i++) {
+  if(!casillas[colum]['fila' + i].ocupado){
+    return 'fila' + i;
+  }
+}
+return false;
+}
 canvas.addEventListener('mouseup', function (event) {
+  //alert("x= "+ event.clientX + " y= " + event.clientY);
   MousePos(canvas, event);
   var colum = false;
   if(check){
@@ -333,8 +463,20 @@ canvas.addEventListener('mouseup', function (event) {
       if(sectorColumnas[i].contains()){
         colum = true;
         borrarFicha();
-        fichas[fichaActual.a.id].posX = sectorColumnas[i].posX-25;
-        fichas[fichaActual.a.id].posY = sectorColumnas[i].posY-25;
+      //  fichas[fichaActual.a.id].posX = 388;
+      //  fichas[fichaActual.a.id].posY = 288;
+        //fichas[fichaActual.a.id].posX = sectorColumnas[i].posX-25;
+        //fichas[fichaActual.a.id].posY = sectorColumnas[i].posY-25;
+        //alert("alert3" + casillas['columna2','fila1']);
+        var fila = calcularFila(sectorColumnas[i].id);
+        if(fila!=false){
+          fichas[fichaActual.a.id].posX = casillas[sectorColumnas[i].id][fila].posX;
+          fichas[fichaActual.a.id].posY = casillas[sectorColumnas[i].id][fila].posY;
+          casillas[sectorColumnas[i].id][fila].ocupado =true;
+        } else{
+          colum = false;
+        }
+
         borrarFicha();
         dibujarRecuadros();
         ctx.drawImage(tablero, 220, 140);
@@ -365,6 +507,7 @@ canvas.addEventListener('mouseup', function (event) {
 
 }, false);
 canvas.addEventListener('mousemove', function (event) {
+
     if (down){
         dibujarRecuadros();
         ctx.drawImage(tablero, 220, 140);
