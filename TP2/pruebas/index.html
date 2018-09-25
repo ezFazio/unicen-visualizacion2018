@@ -395,6 +395,71 @@ function dibujarTodasLasFichas(){for (var i = 1; i < 43; i++) {
 dibujarFicha(fichas[i]);
 }
 }
+function dibujarTurno(){
+  if(turno%2 != 0){
+    ctx.strokeStyle = '#33CC33';
+    ctx.lineWidth = 15;
+    ctx.beginPath();
+    ctx.moveTo(50, 125);
+    ctx.lineTo(160, 125);
+    ctx.quadraticCurveTo(195, 125, 200, 150);
+    ctx.lineTo(200, 510);
+    ctx.quadraticCurveTo(200, 535, 165, 535);
+    ctx.lineTo(50, 535);
+    ctx.quadraticCurveTo(20, 535, 15, 515);
+    ctx.lineTo(15, 165);
+    ctx.quadraticCurveTo(15, 130, 50, 125);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 17;
+    ctx.beginPath();
+    ctx.moveTo(800, 125);
+    ctx.lineTo(910, 125);
+    ctx.quadraticCurveTo(945, 125, 950, 150);
+    ctx.lineTo(950, 510);
+    ctx.quadraticCurveTo(950, 535, 910, 535);
+    ctx.lineTo(800, 535);
+    ctx.quadraticCurveTo(770, 535, 765, 515);
+    ctx.lineTo(765, 165);
+    ctx.quadraticCurveTo(765, 130, 800, 125);
+    ctx.stroke();
+    ctx.closePath();
+  }
+  else{
+    ctx.strokeStyle = '#33CC33';
+    ctx.lineWidth = 15;
+    ctx.beginPath();
+    ctx.moveTo(800, 125);
+    ctx.lineTo(910, 125);
+    ctx.quadraticCurveTo(945, 125, 950, 150);
+    ctx.lineTo(950, 510);
+    ctx.quadraticCurveTo(950, 535, 910, 535);
+    ctx.lineTo(800, 535);
+    ctx.quadraticCurveTo(770, 535, 765, 515);
+    ctx.lineTo(765, 165);
+    ctx.quadraticCurveTo(765, 130, 800, 125);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.strokeStyle = '#FFFFFF';
+    ctx.lineWidth = 17;
+    ctx.beginPath();
+    ctx.moveTo(50, 125);
+    ctx.lineTo(160, 125);
+    ctx.quadraticCurveTo(195, 125, 200, 150);
+    ctx.lineTo(200, 510);
+    ctx.quadraticCurveTo(200, 535, 165, 535);
+    ctx.lineTo(50, 535);
+    ctx.quadraticCurveTo(20, 535, 15, 515);
+    ctx.lineTo(15, 165);
+    ctx.quadraticCurveTo(15, 130, 50, 125);
+    ctx.stroke();
+    ctx.closePath();
+  }
+
+
+
+}
   function borrarFicha(){
 
       ctx.fillStyle = "#FFFFFF";
@@ -407,7 +472,64 @@ dibujarFicha(fichas[i]);
       ctx.closePath();
     }
 
+//-------------reglas del Juego------------
 
+function comprobarGanador(){
+  var contador = 0;
+  var anterior = null;
+  for (var i = 1; i < 7; i++) {
+    for (var j = 1; j < 8; j++) {
+
+      if (j == 1 && casillas['columna'+i]['fila' +j].ocupado){
+
+
+        if(casillas['columna'+i]['fila' +j].ficha.id <= 21){
+          anterior = 21;
+          contador++;
+
+
+        } else if(casillas['columna'+i]['fila' +j].ficha.id > 21){
+          anterior = 22;
+          contador++;
+
+
+
+        }
+
+      }
+      if(i<7){ console.log(i);
+       if (anterior != null &&  casillas['columna'+i]['fila' +j].ocupado) {if(casillas['columna'+i]['fila' +j].ficha !=null){ if(anterior == 21){ //anterior = rojo
+        console.log("anterior" + anterior + " casilla " + casillas['columna'+i]['fila' +j].ficha.id );
+          if(anterior >= casillas['columna'+i]['fila' +j].ficha.id){
+
+            contador++;}
+
+            else{
+
+              contador =0;
+
+              anterior = null;
+            }
+            if (contador == 4){
+              alert('Ganó el jugador Rojo');
+
+          }
+        }
+}}
+      }else{
+        i++;
+        j=1;
+        anterior == null;
+        contador = 0;
+      }
+    //  casillas['columna'+i]['fila' +j]
+    }
+  }
+}
+
+
+
+//-------------FIN reglas del Juego------------
 
 
 
@@ -430,21 +552,35 @@ posMouseY = Math.round(evt.clientY - this.ClientRect.top);
 
 var down = false;
 var check = false;
+var turno = 1;
 canvas.addEventListener('mousedown', function (evt) {
     down = true;
     check = true;
     MousePos(canvas, evt);
   //alert("alert2" + casillas['columna2','fila1']);
     //alert("llegoasd" + posMouseX);
-
-    for (var i = 1; i < 43; i++) {
+    if(turno%2 != 0){
+    for (var i = 1; i < 22; i++) {
     //alert(i + " espacio " + fichas[i].posX)
-      if(fichas[i].contains()){
+      if(fichas[i].contains() && !fichas[i].bloqueado ){
         //alert("ficha seleccionada" + i);
         fichaActual.a = fichas[i];
         break;
       }
-}}, false);
+      }
+} else{
+  for (var i = 22; i < 43; i++) {
+  //alert(i + " espacio " + fichas[i].posX)
+    if(fichas[i].contains() && !fichas[i].bloqueado ){
+      //alert("ficha seleccionada" + i);
+      fichaActual.a = fichas[i];
+      break;
+    }
+    }
+}
+
+
+}, false);
 
 function calcularFila(colum){
 for (var i = 1; i < 7; i++) {
@@ -463,16 +599,15 @@ canvas.addEventListener('mouseup', function (event) {
       if(sectorColumnas[i].contains()){
         colum = true;
         borrarFicha();
-      //  fichas[fichaActual.a.id].posX = 388;
-      //  fichas[fichaActual.a.id].posY = 288;
-        //fichas[fichaActual.a.id].posX = sectorColumnas[i].posX-25;
-        //fichas[fichaActual.a.id].posY = sectorColumnas[i].posY-25;
-        //alert("alert3" + casillas['columna2','fila1']);
         var fila = calcularFila(sectorColumnas[i].id);
         if(fila!=false){
           fichas[fichaActual.a.id].posX = casillas[sectorColumnas[i].id][fila].posX;
           fichas[fichaActual.a.id].posY = casillas[sectorColumnas[i].id][fila].posY;
-          casillas[sectorColumnas[i].id][fila].ocupado =true;
+          casillas[sectorColumnas[i].id][fila].ocupado = true;
+          casillas[sectorColumnas[i].id][fila].ficha =  fichas[fichaActual.a.id];
+          fichas[fichaActual.a.id].bloqueado = true;
+          turno++;
+          dibujarTurno();
         } else{
           colum = false;
         }
@@ -481,6 +616,8 @@ canvas.addEventListener('mouseup', function (event) {
         dibujarRecuadros();
         ctx.drawImage(tablero, 220, 140);
         dibujarTodasLasFichas();
+        dibujarTurno();
+        //comprobarGanador();
       }
 
 
@@ -490,7 +627,7 @@ canvas.addEventListener('mouseup', function (event) {
       borrarFicha();
       fichas[fichaActual.a.id].posX = fichas[fichaActual.a.id].posInicialX;
       fichas[fichaActual.a.id].posY = fichas[fichaActual.a.id].posInicialY;
-
+      dibujarTurno();
       dibujarRecuadros();
       ctx.drawImage(tablero, 220, 140);
       dibujarTodasLasFichas();
@@ -506,11 +643,13 @@ canvas.addEventListener('mouseup', function (event) {
     fichaActual.a = null;
 
 }, false);
+dibujarTurno();
 canvas.addEventListener('mousemove', function (event) {
 
     if (down){
         dibujarRecuadros();
         ctx.drawImage(tablero, 220, 140);
+        dibujarTurno();
         dibujarTodasLasFichas();
         borrarFicha();
         fichas[fichaActual.a.id].posX = event.clientX - this.offsetLeft -25;
