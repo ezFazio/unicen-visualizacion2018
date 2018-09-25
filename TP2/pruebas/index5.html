@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>4 en Linea</title>
+</head>
+
+<script type="text/javascript" src="jQuery/jquery.min.js"></script>
+
+</head>
+<body id="top">
+<div class="wrapper col1">
+  <div id="header" class="clear">
+    <div class="fl_left">
+      <h1><a href="index.html">4 en Linea</a></h1>
+      <p>Ezequiel Fazio</p>
+    </div>
+
+  </div>
+</div>
+<!-- ####################################################################################################### -->
+
+  <div id="homepage" class="clear">
+    <p>	<canvas id="canvas" width="1000" height="550" style="border:#000 solid 1px;" />
+  </div>
+
+<div class="wrapper">
+  <div id="copyright" class="clear">
+    <p class="fl_left">Interfaces -TUDAI- 2018  <a href="#">Ezequiel Fazio</a></p>
+
+  </div>
+</div>
+</body>
+<script>
+$(document).ready(function () {
+  var ctx = document.getElementById("canvas").getContext("2d");
+  var fichaActual = {
+    aInternal: null,
+    aListener: function(val) {},
+    set a(val) {
+      this.aInternal = val;
+      this.aListener(val);
+    },
+    get a() {
+      return this.aInternal;
+    },
+    registerListener: function(listener) {
+      this.aListener = listener;
+    }
+  }
+  var tablero = new Image();
+  var fichaAmarilla = new Image();
+  fichaAmarilla.src = "img/fichaA.png";
+  var fichaRoja = new Image();
+  fichaRoja.src = "img/fichaR.png";
+  tablero.src = "img/tablero.png";
+
+  tablero.onload = function(){
+  ctx.drawImage(tablero, 220, 140);
+  var posMouseX = null;
+  var posMouseY = null;
+
+  function Ficha(pX,pY,colorin,idFicha){
+    this.id = idFicha;
+    this.color = colorin;
+    this.posInicialX = pX;
+    this.posInicialY = pY;
+    this.posX = pX;
+    this.posY = pY;
+    this.imag = colorin;
+
+  }
+  Ficha.prototype.contains = function() {
+    // All we have to do is make sure the Mouse X,Y fall in the area between
+    // the shape's X and (X + Width) and its Y and (Y + Height)
+    return  (this.posX <= posMouseX) && (this.posX + 45 >= posMouseX) &&
+            (this.posY <= posMouseY) && (this.posY + 45 >= posMouseY);
+  }
+  function dibujarFicha(fichin){
+    ctx.drawImage(fichin.imag, fichin.posX, fichin.posY);
+
+  }
+  function Recuadro(pX,pY,idRecuadro){
+    this.id = idRecuadro;
+    this.color = "#000000";
+    this.posX = pX;
+    this.posY = pY;
+  }
+  Recuadro.prototype.contains = function() {
+    // All we have to do is make sure the Mouse X,Y fall in the area between
+    // the shape's X and (X + Width) and its Y and (Y + Height)
+    return  (this.posX <= posMouseX) && (this.posX + 45 >= posMouseX) &&
+            (this.posY <= posMouseY) && (this.posY + 45 >= posMouseY);
+  }
+  var sectorColumnas = [];
+  var fichas = [];
+  //-----------------Recuadros de Dropeo en columnas------------------
+  var recuadro1 = new Recuadro(250+15,110,1);
+  sectorColumnas[1] = recuadro1;
+
+  var recuadro2 = new Recuadro(325+15,110,2);
+  sectorColumnas[2] = recuadro2;
+
+  var recuadro3 = new Recuadro(400+15,110,3);
+  sectorColumnas[3] = recuadro3;
+
+  var recuadro4 = new Recuadro(475+13,110,4);
+  sectorColumnas[4] = recuadro4;
+
+  var recuadro5 = new Recuadro(550+11,110,5);
+  sectorColumnas[5] = recuadro5;
+
+  var recuadro6 = new Recuadro(625+10,110,6);
+  sectorColumnas[6] = recuadro6;
+
+  var recuadro7 = new Recuadro(700+9,110,7);
+  sectorColumnas[7] = recuadro7;
+
+dibujarRecuadros();
+function dibujarRecuadros(){
+  for (var i = 1; i < 8; i++) {
+    ctx.fillStyle = sectorColumnas[i].color;
+    ctx.beginPath();
+    ctx.arc(sectorColumnas[i].posX,sectorColumnas[i].posY,26,0,Math.PI *2);
+    ctx.lineWidth = 5;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "black";
+    ctx.stroke();
+    ctx.closePath();
+  }
+}
+
+
+
+
+
+  //----------------FICHAS Rojas------------------------
+  var fr1 = new Ficha(25,140,fichaRoja,1);
+
+  fichas[1] = fr1;
+  var fr2 = new Ficha(80,140,fichaRoja,2);
+
+  fichas[2] = fr2;
+  var fr3 = new Ficha(135,140,fichaRoja,3);
+
+  fichas[3] = fr3;
+  var fr4 = new Ficha(25,195,fichaRoja,4);
+
+  fichas[4] = fr4;
+  var fr5 = new Ficha(80,195,fichaRoja,5);
+
+  fichas[5] = fr5;
+  var fr6 = new Ficha(135,195,fichaRoja,6);
+
+  fichas[6] = fr6;
+  var fr7 = new Ficha(25,250,fichaRoja,7);
+
+  fichas[7] = fr7;
+  var fr8 = new Ficha(80,250,fichaRoja,8);
+
+  fichas[8] = fr8;
+  var fr9 = new Ficha(135,250,fichaRoja,9);
+
+  fichas[9] = fr9;
+  var fr10 = new Ficha(25,305,fichaRoja,10);
+
+  fichas[10] = fr10;
+  var fr11 = new Ficha(80,305,fichaRoja,11);
+
+  fichas[11] = fr11;
+  var fr12 = new Ficha(135,305,fichaRoja,12);
+
+  fichas[12] = fr12;
+  var fr13 = new Ficha(25,360,fichaRoja,13);
+
+  fichas[13] = fr13;
+  var fr14 = new Ficha(80,360,fichaRoja,14);
+
+  fichas[14] = fr14;
+  var fr15 = new Ficha(135,360,fichaRoja,15);
+
+  fichas[15] = fr15;
+  var fr16 = new Ficha(25,415,fichaRoja,16);
+
+  fichas[16] = fr16;
+  var fr17 = new Ficha(80,415,fichaRoja,17);
+
+  fichas[17] = fr17;
+  var fr18 = new Ficha(135,415,fichaRoja,18);
+
+  fichas[18] = fr18;
+  var fr19 = new Ficha(25,470,fichaRoja,19);
+
+  fichas[19] = fr19;
+  var fr20 = new Ficha(80,470,fichaRoja,20);
+
+  fichas[20] = fr20;
+  var fr21 = new Ficha(135,470,fichaRoja,21);
+
+  fichas[21] = fr21;
+  //------------------FIN FICHAS ROJAS------------------------------
+
+
+  //----------------FICHAS Amarillas------------------------
+  var fa1 = new Ficha(775,140,fichaAmarilla,22);
+
+  fichas[22] = fa1;
+  var fa2 = new Ficha(830,140,fichaAmarilla,23);
+
+  fichas[23] = fa2;
+  var fa3 = new Ficha(885,140,fichaAmarilla,24);
+
+  fichas[24] = fa3;
+  var fa4 = new Ficha(775,195,fichaAmarilla,25);
+
+  fichas[25] = fa4;
+  var fa5 = new Ficha(830,195,fichaAmarilla,26);
+
+  fichas[26] = fa5;
+  var fa6 = new Ficha(885,195,fichaAmarilla,27);
+
+  fichas[27] = fa6;
+  var fa7 = new Ficha(775,250,fichaAmarilla,28);
+
+  fichas[28] = fa7;
+  var fa8 = new Ficha(830,250,fichaAmarilla,29);
+
+  fichas[29] = fa8;
+  var fa9 = new Ficha(885,250,fichaAmarilla,30);
+
+  fichas[30] = fa9;
+  var fa10 = new Ficha(775,305,fichaAmarilla,31);
+
+  fichas[31] = fa10;
+  var fa11 = new Ficha(830,305,fichaAmarilla,32);
+
+  fichas[32] = fa11;
+  var fa12 = new Ficha(885,305,fichaAmarilla,33);
+
+  fichas[33] = fa12;
+  var fa13 = new Ficha(775,360,fichaAmarilla,34);
+
+  fichas[34] = fa13;
+  var fa14 = new Ficha(830,360,fichaAmarilla,35);
+
+  fichas[35] = fa14;
+  var fa15 = new Ficha(885,360,fichaAmarilla,36);
+
+  fichas[36] = fa15;
+  var fa16 = new Ficha(775,415,fichaAmarilla,37);
+
+  fichas[37] = fa16;
+  var fa17 = new Ficha(830,415,fichaAmarilla,38);
+
+  fichas[38] = fa17;
+  var fa18 = new Ficha(885,415,fichaAmarilla,39);
+
+  fichas[39] = fa18;
+  var fa19 = new Ficha(775,470,fichaAmarilla,40);
+
+  fichas[40] = fa19;
+  var fa20 = new Ficha(830,470,fichaAmarilla,41);
+
+  fichas[41] = fa20;
+  var fa21 = new Ficha(885,470,fichaAmarilla,42);
+
+  fichas[42] = fa21;
+  //------------------FIN FICHAS AMARILLAS------------------------------
+  dibujarTodasLasFichas();
+function dibujarTodasLasFichas(){for (var i = 1; i < 43; i++) {
+dibujarFicha(fichas[i]);
+}
+}
+  function borrarFicha(){
+
+      ctx.fillStyle = "#FFFFFF";
+      ctx.beginPath();
+      ctx.moveTo(posMouseX, posMouseY); // ubicamos el cursor en la posicion (10,10)
+      ctx.lineTo(posMouseX,posMouseY);
+
+      ctx.arc(fichaActual.a.posX+25,fichaActual.a.posY+25,26,0, Math.PI * 2);
+      ctx.fill();
+      ctx.closePath();
+    }
+
+
+
+
+
+//----------------------------
+
+
+
+
+
+function MousePos(canvas, evt) {
+this.ClientRect = canvas.getBoundingClientRect();
+posMouseX = Math.round(evt.clientX - this.ClientRect.left);
+posMouseY = Math.round(evt.clientY - this.ClientRect.top);
+//alert("xxxxxxxxx"+posMouseX +"yyyyyyyyyyy" + posMouseY);
+}
+canvas.addEventListener("mousedown", function(evt) {
+
+MousePos(canvas, evt);
+
+//alert("llegoasd" + posMouseX);
+
+for (var i = 1; i < 43; i++) {
+//alert(i + " espacio " + fichas[i].posX)
+  if(fichas[i].contains()){
+    //alert("ficha seleccionada" + i);
+    fichaActual.a = fichas[i];
+    break;
+  }
+
+}
+
+}, false);
+fichaActual.registerListener(function(val) {
+
+});
+
+var down = false;
+var check = false;
+canvas.addEventListener('mousedown', function () {
+    down = true;
+    check = true;
+}, false);
+canvas.addEventListener('mouseup', function (event) {
+  MousePos(canvas, event);
+  var colum = false;
+  if(check){
+    for (var i = 1; i < 8; i++) {
+      if(sectorColumnas[i].contains()){
+        colum = true;
+        alert("if");
+        fichas[fichaActual.a.id].posX = sectorColumnas[i].posX-25;
+        fichas[fichaActual.a.id].posY = sectorColumnas[i].posY-25;
+        borrarFicha();
+        dibujarRecuadros();
+        dibujarTodasLasFichas();
+      }
+
+
+    }
+    if(!colum) {
+      alert("else");
+      borrarFicha();
+      fichas[fichaActual.a.id].posX = fichas[fichaActual.a.id].posInicialX;
+      fichas[fichaActual.a.id].posY = fichas[fichaActual.a.id].posInicialY;
+
+      dibujarRecuadros();
+      dibujarTodasLasFichas();
+    }
+    check = false;
+    column =false;
+    alert ("final");
+  }
+
+
+    down = false;
+
+    fichaActual.a = null;
+
+}, false);
+canvas.addEventListener('mousemove', function (event) {
+    if (down){
+        dibujarRecuadros();
+        ctx.drawImage(tablero, 220, 140);
+        dibujarTodasLasFichas();
+        borrarFicha();
+        fichas[fichaActual.a.id].posX = event.clientX - this.offsetLeft -25;
+        fichas[fichaActual.a.id].posY = event.clientY - this.offsetTop-25;
+          //alert(event.clientX);
+        ctx.drawImage(fichaActual.a.imag, event.clientX - this.offsetLeft -25,
+        event.clientY - this.offsetTop-25, 50, 50);
+
+
+    }
+}, false);
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>
