@@ -14,12 +14,13 @@
 <!-- ####################################################################################################### -->
 
   <div id="homepage" class="clear">
-    <button type="button" name="button" id='reinicio'> Reiniciar Juego</button>
+    <button type="button" title="a veces tarda pero funciona siempre" name="button" id='reinicio'> Reiniciar Juego</button>
 
   </div>
 
 <div class="wrapper">
-    <p>	<canvas id="canvas" width="1000" height="550" style="border:#000 solid 1px;" />
+    <p>	<canvas id="canvas" width="1000" height="550" style="border:#000 solid 1px;"/>
+      <style>#canvas { background-color: rgb(173,216,230); }</style>
   <div id="copyright" class="clear">
     <p class="fl_left">Interfaces -TUDAI- 2018  <a href="#">Ezequiel Fazio</a></p>
 
@@ -413,7 +414,7 @@ function dibujarTurno(){
     ctx.quadraticCurveTo(15, 130, 50, 125);
     ctx.stroke();
     ctx.closePath();
-    ctx.strokeStyle = '#FFFFFF';
+    ctx.strokeStyle = 'rgb(173,216,230)';
     ctx.lineWidth = 17;
     ctx.beginPath();
     ctx.moveTo(800, 125);
@@ -443,7 +444,7 @@ function dibujarTurno(){
     ctx.quadraticCurveTo(765, 130, 800, 125);
     ctx.stroke();
     ctx.closePath();
-    ctx.strokeStyle = '#FFFFFF';
+    ctx.strokeStyle = 'rgb(173,216,230)';
     ctx.lineWidth = 17;
     ctx.beginPath();
     ctx.moveTo(50, 125);
@@ -464,11 +465,10 @@ function dibujarTurno(){
 }
   function borrarFicha(){
 
-      ctx.fillStyle = "#FFFFFF";
+      ctx.fillStyle = "rgb(173,216,230)";
       ctx.beginPath();
       ctx.moveTo(posMouseX, posMouseY); // ubicamos el cursor en la posicion (10,10)
       ctx.lineTo(posMouseX,posMouseY);
-
       ctx.arc(fichaActual.a.posX+25,fichaActual.a.posY+25,26,0, Math.PI * 2);
       ctx.fill();
       ctx.closePath();
@@ -494,9 +494,11 @@ function comprobarGanadorVertical(){
         contador++;
         if(contador >= 4){
           if(casillas['columna'+i]['fila' +j].ficha.id <= 21){
-              alert("Juego terminado, ganó el Rojo con una linea Vertical"); return true;
+              alert("Juego terminado, ganó el Rojo con una linea Vertical");
+              return true;
           } else{
-              alert("Juego terminado, ganó el Amarillo con una linea Vertical"); return true;
+              alert("Juego terminado, ganó el Amarillo con una linea Vertical");
+              return true;
           }
 
         }
@@ -531,9 +533,11 @@ function comprobarGanadorHorizontal(){
         contador++;
         if(contador >= 4){
           if(casillas['columna'+i]['fila' +j].ficha.id <= 21){
-              alert("Juego terminado, ganó el Rojo con una linea Horizontal"); return true;
+              alert("Juego terminado, ganó el Rojo con una linea Horizontal");
+              return true;
           } else{
-              alert("Juego terminado, ganó el Amarillo con una linea Horizontal"); return true;
+              alert("Juego terminado, ganó el Amarillo con una linea Horizontal");
+              return true;
           }
 
         }
@@ -669,9 +673,11 @@ function comprobarGanadorDiagonal(){
         contador++;
         if(contador >= 4){
           if(todasDiagonales[i][j].ficha.id <= 21){
-              alert("Juego terminado, ganó el Rojo con una linea Diagonal"); return true;
+              alert("Juego terminado, ganó el Rojo con una linea Diagonal");
+              return true;
           } else{
-              alert("Juego terminado, ganó el Amarillo con una linea Diagonal"); return true;
+              alert("Juego terminado, ganó el Amarillo con una linea Diagonal");
+              return true;
           }
 
         }
@@ -763,7 +769,7 @@ canvas.addEventListener('mouseup', function (event) {
   //alert("x= "+ event.clientX + " y= " + event.clientY);
   MousePos(canvas, event);
   var colum = false;
-  if(check){
+  if(check && fichaActual.a != null){
     for (var i = 1; i < 8; i++) {
       if(sectorColumnas[i].contains()){
         colum = true;
@@ -791,13 +797,15 @@ canvas.addEventListener('mouseup', function (event) {
           for (var i = 1; i < 43; i++) {
             fichas[i].bloqueado=true;
               }
+        } else if(todasLasFichasEstanBloqueadas()){  //no hay ganador ni fichas para mover es decir empate
+            alert("Juego terminado, eh aquí un empate");
         }
 
       }
 
 
     }
-    if(!colum) {
+    if(!colum && fichaActual.a != null) {
 
       borrarFicha();
       fichas[fichaActual.a.id].posX = fichas[fichaActual.a.id].posInicialX;
@@ -820,6 +828,15 @@ canvas.addEventListener('mouseup', function (event) {
 }, false);
 function comprobarGanador(){
   return comprobarGanadorHorizontal() || comprobarGanadorDiagonal() || comprobarGanadorVertical();
+}
+function todasLasFichasEstanBloqueadas(){
+  var contador = 0;
+  for (var i = 1; i < 43; i++) {
+    if(fichas[i].bloqueado == true){
+      contador++;
+    }
+  }
+  return contador ==42;
 }
 function reiniciarCasillasDiagonales(){
   d1[1] = casillas['columna1']['fila1'];
@@ -899,7 +916,7 @@ function reiniciarCasillasDiagonales(){
   d11[4] = casillas['columna4']['fila2'];
   d11[5] = casillas['columna3']['fila1'];
 
-  
+
   d12[1] = casillas['columna7']['fila6'];
   d12[2] = casillas['columna6']['fila5'];
   d12[3] = casillas['columna5']['fila4'];
@@ -913,13 +930,14 @@ function reiniciarCasillasDiagonales(){
 dibujarTurno();
 canvas.addEventListener('mousemove', function (event) {
 
-    if (down){
+    if (down && fichaActual.a != null){
         dibujarRecuadros();
         ctx.drawImage(tablero, 220, 140);
         dibujarTurno();
         dibujarTodasLasFichas();
         borrarFicha();
         fichas[fichaActual.a.id].posX = event.clientX - this.offsetLeft -25;
+
         fichas[fichaActual.a.id].posY = event.clientY - this.offsetTop-25;
           //alert(event.clientX);
         ctx.drawImage(fichaActual.a.imag, event.clientX - this.offsetLeft -25,
