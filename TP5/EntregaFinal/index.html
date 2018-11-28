@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ClickJuegos</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/codebird.js"></script>
+    <script src="js/js.js"></script>
+    <script src="js/tweets.js"></script>
+      <link href="css/style.css" rel="stylesheet">
+  </head>
+
+	<!-- CONTENIDO -->
+  <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar ">
+
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+
+        </a>
+
+      </div>
+
+      <form class="navbar-form navbar-left form-inline" role="search">
+        <a href="index.html" target="_self"><img id="logo" alt="Brand" src="img/logo.png"></a>
+        <div class="form-group">
+
+          <input type="text" class="form-control" placeholder="Buscar ej: GTA">
+    <button type="submit" class="btn btn-default">Buscar</button>
+        </div>
+
+      </form>
+        <form class="navbar-form navbar-left form-inline" role="search">
+    <div class="form-group">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Login
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Ingresar</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <body>
+              <form class="form-signin">
+                  <img class="logo mx-auto d-block" alt="Brand" src="img/logo.png">
+          <p></p>
+                    <h5 class="h5 text-center font-weight-normal">Nombre de Usuario</h5>
+                    <input type="input" id="inputEmail" class="form-control  mx-auto d-block" placeholder="Nombre de Usuario" required="" autofocus="">
+                    <p></p>
+
+                    <h5 class="h5 text-center mb-3 font-weight-normal ">Contraseña</h5>
+                    <input type="password" id="inputPassword" class="form-control  mx-auto d-block" placeholder="Password" required="">
+                    <div class="checkbox mb-3">
+                      <label>
+                        <input type="checkbox" value="remember-me"> Recordarme </input>
+                      </label>
+                          <p class="white">.</p>
+                    </div>
+                  <a href="logueado.html">  <button class="btn btn-lg btn-primary btn-block col-lg-3 mx-auto d-block" type="button">Login</button></a>
+                  </form>
+    </body>
+          </div>
+        </div>
+      </div>
+      </div>
+  </div>
+    </div>
+    </form>
+</nav>
+  <body>
+    <div id="carouselExampleControls" class="carousel slide col-lg-6 mx-auto" data-ride="carousel">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="#">Home</a></li>
+      </ol>
+    </nav>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block juegos col-lg-12" src="img/rs3.jpeg" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block juegos col-lg-12" src="img/gta.jpg" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block juegos col-lg-12" src="img/cg.png" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Anterior</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Siguiente</span>
+  </a>
+
+</div>
+<p class="col-lg-3"></p>
+<div class="inicio form-group form-inline">
+  <p class="col-lg-3"></p>
+  <h4>Los Más Recomendados</h4>
+  <div class="dropdown">
+  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+           <a class="dropdown-item" href="#">Aventura</a>
+           <a class="dropdown-item" href="#">Acción</a>
+           <a class="dropdown-item" href="#">MMORPG</a>
+  </div>
+  </div>
+  </div>
+  <div class="row" >
+  <div class="col-lg-3 form-inline">
+
+</div>
+
+<div class="card form-inline" style="width: 11rem;">
+  <img class="card-img-top" src="img/rs.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center">RuneScape</h5>
+    <p class="card-text text-center">El MMORPG con más historia</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center">Puntuación   5</li>
+  </ul>
+  <div class="card-body">
+    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Jugar</button></a>
+  </div>
+</div>
+
+
+
+<div class="card form-inline" style="width: 11rem;">
+  <img class="card-img-top" src="img/minigta.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center ">GTA</h5>
+    <p class="card-text text-center">Así nacía el mítico Grand Teft Auto</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center">Puntuación   4.5</li>
+  </ul>
+  <div class="card-body">
+    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Jugar</button></a>
+  </div>
+</div>
+
+
+
+<div class="card form-inline" style="width: 11rem;">
+  <img class="card-img-top" src="img/minicg.png" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center">Carmaggedon</h5>
+    <p class="card-text text-center">Violencia extrema al volante</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center">Puntuación   3.5</li>
+  </ul>
+  <div class="card-body">
+    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Comprar</button></a>
+  </div>
+</div>
+
+
+<div class="card form-inline" style="width: 11rem;">
+  <img class="card-img-top" src="img/mininc.jpg" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title text-center">No Choques!</h5>
+    <p class="card-text text-center">Cuidado con las Ambulancias</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-center">Puntuación   5</li>
+  </ul>
+  <div class="card-body">
+    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Jugar</button></a>
+  </div>
+</div>
+
+
+</div>
+
+  </body>
+  <!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
+
+    <!-- Footer Links -->
+    <div class="container-fluid text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-6 mt-md-0 mt-3">
+
+          <!-- Content -->
+          <h5 class="text-uppercase">ClickJuegos</h5>
+          <p>Los mejores juegos ONLINE para vos.</p>
+
+        </div>
+        <!-- Grid column -->
+
+        <hr class="clearfix w-100 d-md-none pb-3">
+
+        <!-- Grid column -->
+        <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase">Contacto</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Calle Falsa 123, Springfield</a>
+              </li>
+              <li>
+                <a href="#!">info@clickjuegos.com</a>
+              </li>
+              <li>
+                <a href="#!">+54 9 232 360 7060</a>
+              </li>
+
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-3 mb-md-0 mb-3">
+
+            <!-- Links -->
+            <h5 class="text-uppercase">Links</h5>
+
+            <ul class="list-unstyled">
+              <li>
+                <a href="#!">Ayuda</a>
+              </li>
+              <li>
+                <a href="#!">FAQ's</a>
+              </li>
+              <li>
+                <a href="#!">Acerca Nuestro</a>
+              </li>
+
+            </ul>
+
+          </div>
+          <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2018 Copyright:
+      <a href="#"> ClickJuegos.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+</html>

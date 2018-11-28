@@ -1,0 +1,48 @@
+
+.navbar{
+  background-color: #2A1A50;
+}
+
+body {
+
+  background-image: url("../img/back.jpg");
+
+}
+
+.pag{
+  padding-top: 80px;
+}
+
+
+#logo{
+  width: 210px;
+  height: 40px;
+
+}
+.white{
+  color: white;
+}
+footer {
+  background-color: #2A1A50;
+  color: grey;
+}
+#canvas {
+  background-color: rgb(173,173,173);
+}
+
+#logo, .logo{
+  height: 75px;
+  width: auto;
+}
+.white{
+  color: white;
+}
+
+
+.breadcrumb{
+	background-color: rgba(0,0,0,0);
+}
+
+.name-player{
+	color: white !important;
+}
