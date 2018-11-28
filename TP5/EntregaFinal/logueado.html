@@ -7,19 +7,17 @@
     <title>ClickJuegos</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
-
+    <link href="css/style.css" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/codebird.js"></script>
-    <script src="js/js.js"></script>
     <script src="js/tweets.js"></script>
-      <link href="css/style.css" rel="stylesheet">
+    <script src="js/js.js"></script>
   </head>
 
-	<!-- CONTENIDO -->
-  <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar ">
 
+  <nav class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar fixed-top">
     <div class="container">
       <div class="navbar-header">
         <a class="navbar-brand" href="#">
@@ -29,63 +27,27 @@
       </div>
 
       <form class="navbar-form navbar-left form-inline" role="search">
-        <a href="index.html" target="_self"><img id="logo" alt="Brand" src="img/logo.png"></a>
-        <div class="form-group">
 
-          <input type="text" class="form-control" placeholder="Buscar ej: GTA">
+        <div class="form-group">
+          <a href="index.html" target="_self"><img id="logo" alt="Brand" src="img/logo.png"></a>
+          <input type="text" class="form-control" placeholder="Ej. GTA">
     <button type="submit" class="btn btn-default">Buscar</button>
         </div>
 
       </form>
         <form class="navbar-form navbar-left form-inline" role="search">
     <div class="form-group">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-    Login
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Ingresar</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <body>
-              <form class="form-signin">
-                  <img  id="loguito" class="logo mx-auto d-block"alt="Brand" src="img/logo.png">
-          <p></p>
-                    <h5 class="h5 text-center font-weight-normal">Nombre de Usuario</h5>
-                    <input type="input" id="inputEmail" class="form-control  mx-auto d-block" placeholder="Nombre de Usuario" required="" autofocus="">
-                    <p></p>
-
-                    <h5 class="h5 text-center mb-3 font-weight-normal ">Contraseña</h5>
-                    <input type="password" id="inputPassword" class="form-control  mx-auto d-block" placeholder="Password" required="">
-                    <div class="checkbox mb-3">
-                      <label>
-                        <input type="checkbox" value="remember-me"> Recordarme </input>
-                      </label>
-                          <p class="white">.</p>
-                    </div>
-                  <a href="logueado.html">  <button class="btn btn-lg btn-primary btn-block col-lg-3 mx-auto d-block" type="button">Login</button></a>
-                  </form>
-    </body>
-          </div>
-        </div>
-      </div>
-      </div>
-  </div>
+      <h4 class="navbar-text navbar-right player-name"> <a href="#" class="navbar-link">Juan54</a></h4>
+      <a href="index.html"><button type="button" class="btn btn-info navbar-btn" style="margin-left:20px;">Logout</button></a>
     </div>
-    </form>
-</nav>
-  <body>
+      </div>
+      </form>
+  </nav>
+  <body class="pag">
     <div id="carouselExampleControls" class="carousel slide col-lg-6 mx-auto" data-ride="carousel">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item active"><a href="#">Home</a></li>
+        <li class="breadcrumb-item">Home</li>
       </ol>
     </nav>
   <div class="carousel-inner">
@@ -112,19 +74,19 @@
 <p class="col-lg-3"></p>
 <div class="inicio form-group form-inline">
   <p class="col-lg-3"></p>
-  <h4>Los Más Recomendados</h4>
+  <h4>Tus juegos</h4>
   <div class="dropdown">
-  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  </button>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+</button>
+<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
            <a class="dropdown-item" href="#">Aventura</a>
            <a class="dropdown-item" href="#">Acción</a>
            <a class="dropdown-item" href="#">MMORPG</a>
-  </div>
-  </div>
-  </div>
-  <div class="row" >
-  <div class="col-lg-3 form-inline">
+</div>
+</div>
+</div>
+<div class="row" >
+<div class="col-lg-3 form-inline">
 
 </div>
 
@@ -144,7 +106,7 @@
 
 
 
-<div class="card form-inline" style="width: 11rem;">
+<div class="card form-inline rounded" style="width: 11rem;">
   <img class="card-img-top" src="img/minigta.jpg" alt="Card image cap">
   <div class="card-body">
     <h5 class="card-title text-center ">GTA</h5>
@@ -170,7 +132,7 @@
     <li class="list-group-item text-center">Puntuación   3.5</li>
   </ul>
   <div class="card-body">
-    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Comprar</button></a>
+    <a href="juego.html"><button class="btn btn-lg btn-primary d-block mx-auto" type="button" name="button">Jugar</button></a>
   </div>
 </div>
 

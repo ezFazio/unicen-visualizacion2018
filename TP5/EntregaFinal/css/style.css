@@ -33,11 +33,52 @@ footer {
 #logo, .logo{
   height: 75px;
   width: auto;
+
+}
+
+#loguito{
+  animation-duration: 2s;
+    animation-name: slidein;
+    animation-iteration-count: infinite;
+      animation-direction: alternate;
+}
+@-moz-keyframes slidein {
+  from {
+    width:0%
+  }
+
+  to {
+    width:15%;
+  }
+}
+
+@-webkit-keyframes slidein {
+  from {
+    width:0%
+  }
+
+  to {
+   width:15%;
+ }
+}
+
+@keyframes slidein {
+  from {
+
+    width:0%
+  }
+
+  to {
+   width:15%;
+ }
 }
 .white{
   color: white;
 }
-
+.card{
+  margin: 3px;
+  margin-bottom: 20px;
+}
 
 .breadcrumb{
 	background-color: rgba(0,0,0,0);
@@ -45,4 +86,8 @@ footer {
 
 .name-player{
 	color: white !important;
+}
+
+#tabla {
+  margin-left: 50px;
 }
