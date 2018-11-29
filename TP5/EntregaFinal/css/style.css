@@ -87,7 +87,9 @@ footer {
 .name-player{
 	color: white !important;
 }
-
+#canvas{
+  margin-left: 200px;
+}
 #tabla {
   margin-left: 50px;
 }
